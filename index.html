@@ -342,7 +342,7 @@ function watchMatches(){
 }
 function start(){
  unsub.push(()=>{if(unsubM)unsubM();unsubM=null});
- unsub.push(onSnapshot(doc(fs,"config","team"),s=>{const d=s.exists()?s.data():{};roster=Array.isArray(d.list)?d.list:[];const c=typeof d.current==="string"?d.current:"";teamLoaded=true;if(c!==current){current=c;watchMatches()}else route()},()=>{teamLoaded=true;route()}));
+ unsub.push(onSnapshot(doc(fs,"config","team"),s=>{const d=s.exists()?s.data():{};roster=Array.isArray(d.list)?d.list:[];const c=typeof d.current==="string"?d.current:"";teamLoaded=true;if(c!==current||(!unsubM&&!matchesLoaded)){current=c;watchMatches()}else route()},e=>{teamLoaded=true;matchesLoaded=true;$("#main").innerHTML=`<p class="empty">Accès à la base refusé (${esc(e.code)}). Les règles de sécurité sont-elles envoyées (étape 6) ?</p>`;header()}));
  unsub.push(onSnapshot(collection(fs,"competitions"),s=>{comps=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>String(b.createdAt||"").localeCompare(String(a.createdAt||"")));route();if($("#ovC").classList.contains("open"))compList()},()=>{}));
 }
 const comp=()=>comps.find(c=>c.id===current)||{};
@@ -396,7 +396,7 @@ function filtered(){
 function header(){
  const C=comp(),logo=typeof C.logo==="string"&&C.logo.startsWith("data:image/")?C.logo:"";
  $("#logo").hidden=!logo;if(logo)$("#logoImg").src=logo;
- $("#title").innerHTML=`${esc(C.name||"Taguage")} <b>·</b> taguage`;document.title=(C.name||"Taguage")+" · taguage";
+ $("#title").innerHTML=C.name?`${esc(C.name)} <b>·</b> taguage`:"Taguage";document.title=(C.name||"Taguage")+" · taguage";
  $("#subt").textContent=(C.sub?C.sub+" · ":"")+"cellule vidéo équipe de France";
  const url=/^https?:\/\//i.test(C.url||"")?C.url:"";$("#offLink").hidden=!url;if(url)$("#offLink").href=url;
  const skip=matches.filter(m=>m.st==="skip").length,pick=matches.filter(m=>(m.who||[]).length&&m.st!=="skip"),ok=pick.filter(m=>m.st==="ok"||m.st==="done").length,run=pick.filter(m=>m.st==="run").length;
