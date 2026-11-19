@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Taguage Mondial 2027</title>
+<meta name="theme-color" content="#1A6FD4">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Taguage 27">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--bg:#fff;--ink:#121722;--mute:#5b6474;--line:#e3e6eb;--soft:#f3f6fa;--blue:#1A6FD4;--blue2:#145bb0;--yel:#FFCC00;--red:#d6262b;--ok:#15803d;--run:#b45309;--done:#1d4ed8}
+*{box-sizing:border-box;min-width:0}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Poppins,system-ui,sans-serif;overflow-x:clip}
+.cond,h1,h2{font-family:"Barlow Condensed","Arial Narrow",Poppins,sans-serif}
+button,select,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--yel);outline-offset:2px}
+[hidden]{display:none!important}
+/* écrans de connexion */
+.gate{min-height:100vh;min-height:100dvh;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;padding:24px}
+.gate .box{width:min(420px,100%);text-align:center}
+.gate img{width:88px;height:88px;border-radius:20px}
+.gate h1{font-size:40px;line-height:1.05;margin:16px 0 4px}
+.gate p{color:#dbe8fb;margin:0 0 24px}
+.gate input{width:100%;font-size:18px;padding:14px;border-radius:12px;border:0;text-align:center;color:var(--ink);background:#fff}
+.gate .go{width:100%;margin-top:12px;background:var(--yel);color:#121722;border:0;border-radius:12px;padding:14px;font-weight:600;font-size:17px}
+.gate .err{color:var(--yel);min-height:1.5em;margin-top:10px}
+.who{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.who button{background:#fff;color:var(--ink);border:0;border-radius:12px;padding:16px 10px;font-weight:600;font-size:17px;display:flex;align-items:center;gap:10px;justify-content:center}
+/* en-tête */
+header{background:var(--blue);color:#fff;padding:calc(18px + env(safe-area-inset-top)) max(4vw,16px) 18px}
+.top{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;max-width:1240px;margin:auto}
+.brand{display:flex;align-items:center;gap:16px}
+.logo{flex:none;width:72px;height:72px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.logo img{max-width:88%;max-height:88%;object-fit:contain}
+h1{margin:0;font-size:clamp(28px,4.6vw,44px);line-height:1.02;font-weight:700;text-wrap:balance}
+h1 b{color:var(--yel)}
+.sub{color:#dbe8fb;margin:4px 0 0;font-size:14px}
+.side{display:flex;gap:16px;align-items:center}
+.prog{min-width:200px}
+.prog .cond{font-size:28px;font-weight:600;line-height:1.1}
+.bar{height:8px;background:#ffffff33;border-radius:4px;overflow:hidden;display:flex;margin:4px 0}
+.bar i{display:block;height:100%}
+.gear{width:44px;height:44px;border-radius:12px;border:1px solid #ffffff55;background:#ffffff1a;color:#fff;display:grid;place-items:center;flex:none}
+.load{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;max-width:1240px;margin:16px auto 0}
+.lc{background:#ffffff1a;border:1px solid #ffffff38;border-radius:10px;padding:8px 12px;text-align:left;color:#fff;min-height:44px}
+.lc[aria-pressed=true]{background:#fff;color:#121722}
+.lc .n{display:flex;align-items:center;gap:8px;font-weight:600}
+.lc .k{font-size:12px;opacity:.85}
+.lc.me .n::after{content:"moi";font-size:10px;font-weight:600;background:var(--yel);color:#121722;border-radius:4px;padding:0 5px}
+.dot{width:12px;height:12px;border-radius:50%;flex:none;background:var(--c);box-shadow:0 0 0 2px #fff}
+/* barre d'outils */
+.tools{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:10px max(4vw,16px)}
+.tools>div{max-width:1240px;margin:auto;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:none;padding:8px 12px;min-height:40px;font-size:14px}
+.seg button[aria-pressed=true]{background:var(--ink);color:#fff}
+select,input,textarea{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-height:40px;font-size:16px}
+.btn{border:1px solid var(--line);background:var(--soft);border-radius:8px;padding:8px 14px;min-height:40px;font-weight:500;font-size:14px}
+.btn.pri{background:var(--yel);border-color:var(--yel);color:#121722;font-weight:600}
+.btn.blue{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.sp{flex:1}
+.net{font-size:13px;font-weight:600;color:var(--run);background:#fff7e0;border-radius:6px;padding:4px 8px}
+/* planning */
+main{max-width:1240px;margin:auto;padding:8px max(4vw,16px) calc(64px + env(safe-area-inset-bottom))}
+.note{color:var(--mute);font-size:13px;margin:10px 0}
+.day{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:2px solid var(--ink);margin:28px 0 0;padding-bottom:4px}
+.day h2{margin:0;font-size:24px;font-weight:600;text-transform:capitalize}
+.day span{color:var(--mute);font-size:13px}
+.head,.row{display:grid;grid-template-columns:64px minmax(0,1fr) var(--chips) 140px 40px;gap:10px;align-items:center}
+.head{font-size:12px;color:var(--mute);padding:12px 0 0}
+.head .cn{display:grid;grid-template-columns:repeat(var(--nc),36px);gap:4px;text-align:center}
+.row{padding:8px 0;border-bottom:1px solid var(--line)}
+.row.off .mt{opacity:.55}
+.row.skip .mt b{text-decoration:line-through;text-decoration-thickness:1px}
+.row.skip .chips{opacity:.35}
+.t{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-size:24px;font-weight:600;white-space:nowrap;line-height:1;border:0;background:none;padding:0;text-align:left;color:inherit;text-decoration:underline dotted 1px;text-underline-offset:4px}
+.t small{display:block;font:11px Poppins,sans-serif;color:var(--run);margin-top:3px;text-decoration:none}
+.mt b{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-size:21px;font-weight:600;letter-spacing:.01em}
+.mt div{font-size:13px;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mt .nt{color:var(--ink);white-space:normal;background:#fff8d6;border-radius:6px;padding:2px 6px;margin-top:3px;display:inline-block}
+.chips{display:grid;grid-template-columns:repeat(var(--nc),36px);gap:4px}
+.ch{width:36px;height:36px;border-radius:8px;border:1.5px solid var(--line);background:none;font-size:12px;font-weight:600;padding:0;color:var(--mute)}
+.ch.on{background:var(--c);border-color:var(--c);color:#fff}
+.ch.warn{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--red)}
+.st{min-height:36px;padding:4px 8px;font-size:14px;width:100%}
+.st[data-s=run]{color:var(--run);border-color:currentColor}.st[data-s=ok]{color:var(--ok);border-color:currentColor}.st[data-s=done]{color:var(--done);border-color:currentColor}.st[data-s=skip]{color:var(--mute);font-style:italic}
+.mod{width:40px;height:36px;border:1px solid var(--line);background:var(--soft);border-radius:8px;padding:0;display:grid;place-items:center;color:var(--ink)}
+.mod:hover{border-color:var(--ink)}
+.tag{display:inline-block;font-size:11px;font-weight:600;color:var(--blue);margin-left:6px}
+.empty{padding:40px 0;color:var(--mute);text-align:center}
+.cols{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:20px}
+.card{border:1px solid var(--line);border-radius:12px;padding:14px}
+.card h2{margin:0 0 6px;font-size:24px;display:flex;align-items:center;gap:8px}
+.card .dot{box-shadow:none}
+.card ul{list-style:none;margin:8px 0 0;padding:0}
+.card li{display:grid;grid-template-columns:92px 1fr auto;gap:8px;padding:6px 0;border-top:1px solid var(--line);font-size:14px}
+.s{font-size:12px;font-weight:600}
+.s.todo{color:var(--mute)}.s.run{color:var(--run)}.s.ok{color:var(--ok)}.s.done{color:var(--done)}.s.skip{color:var(--mute);font-style:italic}
+/* fenêtres */
+.ov{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;z-index:20;padding:16px}
+.ov.open{display:flex}
+.dlg{background:var(--bg);border-radius:14px;padding:20px;width:min(520px,100%);max-height:90vh;max-height:90dvh;overflow:auto}
+.dlg h2{margin:0 0 12px;font-size:26px}
+.dlg h3{font-size:15px;margin:18px 0 6px}
+.f{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.f label{display:grid;gap:4px;font-size:13px;color:var(--mute)}
+.f .w{grid-column:1/-1}
+.chk{display:flex!important;align-items:center;gap:8px;color:var(--ink)!important;font-size:14px!important}
+.chk input{min-height:0;width:20px;height:20px}
+.acts{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;align-items:center}
+.rl{display:grid;grid-template-columns:44px 1fr auto 40px;gap:8px;margin-bottom:8px;align-items:center}
+.rl input[type=color]{padding:2px;width:44px}
+.rl .chk{font-size:12px!important}
+.ed{width:40px;height:36px;border:0;background:none;color:var(--mute);border-radius:8px}
+.hint{background:var(--soft);border-radius:8px;padding:10px 12px;font-size:14px}
+.offl{display:inline-block;margin-top:6px;color:#121722;background:var(--yel);border-radius:6px;padding:2px 10px;font-size:13px;font-weight:600;text-decoration:none}
+.cbox{border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:12px}
+.cbox h3{margin:0 0 8px}
+.lg{display:flex;align-items:center;gap:12px;margin-top:10px}
+.lg .pv{width:64px;height:64px;border:1px dashed var(--line);border-radius:10px;display:grid;place-items:center;overflow:hidden;font-size:11px;color:var(--mute);text-align:center}
+.lg .pv img{max-width:90%;max-height:90%}
+.pvw{margin-top:12px}
+.pvw table{width:100%;border-collapse:collapse;font-size:13px}
+.pvw td,.pvw th{border-bottom:1px solid var(--line);padding:4px 6px;text-align:left}
+.pvw .warn{color:var(--run);font-size:13px}
+.pvw .sum{font-weight:600}
+.arch{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line)}
+.arch span{flex:1}
+.cur{font-size:11px;font-weight:600;background:var(--blue);color:#fff;border-radius:4px;padding:1px 6px;margin-left:6px}
+.toast{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:8px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:30;max-width:90vw}
+.toast.on{opacity:1}
+@media(prefers-reduced-motion:reduce){.toast{transition:none}}
+@media(max-width:700px){
+ .tools{position:static}
+ .head{display:none}
+ .row{grid-template-columns:52px minmax(0,1fr) 40px;grid-template-areas:"t m e" ". c c" ". s s"}
+ .row .t{grid-area:t}.row .mt{grid-area:m}.row .chips{grid-area:c}.row .st{grid-area:s}.row .mod{grid-area:e}
+ .t{font-size:21px}
+ .logo{width:52px;height:52px}
+ .prog{min-width:0;flex:1}
+ .f{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- 1. Mot de passe -->
+<section class="gate" id="gate" hidden>
+ <form class="box" id="gateForm">
+  <img src="icons/icon-192.png" alt="">
+  <h1>Taguage Mondial 2027</h1>
+  <p>Cellule vidéo · équipe de France masculine</p>
+  <input type="password" id="pwd" autocomplete="current-password" placeholder="Mot de passe de la cellule" aria-label="Mot de passe" required>
+  <button class="go" type="submit">Entrer</button>
+  <div class="err" id="gateErr" role="alert"></div>
+ </form>
+</section>
+
+<!-- 2. Qui es-tu ? -->
+<section class="gate" id="whoGate" hidden>
+ <div class="box">
+  <h1>Qui es-tu ?</h1>
+  <p>Tu recevras les notifications de tes matchs. Modifiable ensuite dans les réglages.</p>
+  <div class="who" id="whoList"></div>
+ </div>
+</section>
+
+<!-- 3. Appli -->
+<div id="app" hidden>
+<header>
+ <div class="top">
+  <div class="brand"><div class="logo" id="logo" hidden><img id="logoImg" alt="Logo de la compétition"></div><div>
+   <h1 id="title">Taguage</h1>
+   <p class="sub" id="subt"></p>
+   <a class="offl" id="offLink" target="_blank" rel="noopener" hidden>Calendrier officiel ↗</a>
+  </div></div>
+  <div class="side"><div class="prog" id="prog"></div>
+   <button class="gear" id="bSet" aria-label="Réglages" title="Réglages"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
+  </div>
+ </div>
+ <div class="load" id="load"></div>
+</header>
+<div class="tools"><div>
+ <div class="seg" id="views"><button data-v="planning">Planning</button><button data-v="equipe">Par collaborateur</button></div>
+ <button class="btn" id="bMine" aria-pressed="false">Mes matchs</button>
+ <select id="fPh" aria-label="Phase"><option value="">Toutes les phases</option></select>
+ <select id="fSt" aria-label="Statut"><option value="">Tous statuts</option></select>
+ <select id="fSel" aria-label="Sélection"><option value="">Tous les matchs</option><option value="pick">Matchs attribués</option><option value="free">Non attribués</option><option value="live">Masquer « pas à taguer »</option><option value="skip">Seulement « pas à taguer »</option></select>
+ <input id="q" type="search" placeholder="Équipe, ville…" aria-label="Rechercher" style="width:150px">
+ <span class="net" id="net" hidden>Hors connexion — tes modifications partiront au retour du réseau</span>
+ <span class="sp"></span>
+ <button class="btn" id="bCopy">Copier pour Excel</button>
+ <button class="btn pri" id="bAdd">+ Match</button>
+</div></div>
+<main id="main"><p class="empty">Chargement du planning…</p></main>
+</div>
+
+<!-- Fenêtre match -->
+<div class="ov" id="ovM"><form class="dlg" id="fm">
+ <h2 id="fmT">Match</h2>
+ <div class="f">
+  <label>Date<input type="date" name="d" required></label>
+  <label>Heure<input type="time" name="t"></label>
+  <label>Équipe 1<input name="a" required placeholder="FRA ou 1A"></label>
+  <label>Équipe 2<input name="b" required placeholder="DEN ou 3B"></label>
+  <label>Phase<select name="ph" id="mPh"></select></label>
+  <label>Groupe / tour<input name="g" placeholder="Gr. D, Gr. II, Demi-finale 1…"></label>
+  <label class="w">Lieu<input name="v" placeholder="Cologne"></label>
+  <label class="w chk"><input type="checkbox" name="prov"> Horaire à confirmer</label>
+  <label class="w">Consignes de taguage<textarea name="note" rows="3" placeholder="Panneau à utiliser, focus défense, livraison avant…"></textarea></label>
+ </div>
+ <div class="acts"><button class="btn blue" type="submit">Enregistrer</button><button class="btn" type="button" data-close>Annuler</button><span class="sp"></span><button class="btn" type="button" id="bDel">Supprimer</button></div>
+</form></div>
+
+<!-- Réglages -->
+<div class="ov" id="ovS"><div class="dlg">
+ <h2>Réglages</h2>
+ <div class="f"><label class="w">Je suis<select id="sMe"></select></label></div>
+ <h3>Notifications</h3>
+ <p class="hint" id="nStatus"></p>
+ <button class="btn blue" id="bNotif" type="button">Activer les notifications sur cet appareil</button>
+ <div id="adminZone" hidden>
+  <h3>Administration (Vincent)</h3>
+  <div class="acts" style="margin-top:0">
+   <button class="btn blue" id="bComp" type="button">Compétition (titre, logo, changer…)</button>
+   <button class="btn" id="bTeam" type="button">Collaborateurs</button>
+  </div>
+  <div class="acts"><button class="btn pri" id="bImport" type="button" hidden>Installer le Mondial 2027 (112 matchs)</button></div>
+ </div>
+ <div class="acts"><button class="btn" id="bOut" type="button">Se déconnecter</button><span class="sp"></span><button class="btn blue" type="button" data-close>Fermer</button></div>
+</div></div>
+
+<!-- Compétition -->
+<div class="ov" id="ovC"><div class="dlg" style="width:min(680px,100%)">
+ <h2>Compétition</h2>
+ <div class="cbox">
+  <h3>Compétition affichée</h3>
+  <div class="f">
+   <label class="w">Nom<input id="cName" placeholder="Mondial 2027"></label>
+   <label class="w">Sous-titre<input id="cSub" placeholder="Allemagne, 13 – 31 janvier 2027"></label>
+   <label class="w">Lien du site officiel<input id="cUrl" type="url" placeholder="https://…"></label>
+  </div>
+  <div class="lg"><div class="pv" id="cLogoPv">Pas de logo</div>
+   <label class="btn" style="display:inline-flex;align-items:center">Choisir un logo<input type="file" id="cLogoIn" accept="image/*" hidden></label>
+   <button class="btn" id="cLogoDel" type="button">Retirer</button></div>
+  <div class="acts"><button class="btn blue" id="cSave" type="button">Enregistrer</button></div>
+ </div>
+ <div class="cbox">
+  <h3>Changer de compétition</h3>
+  <p class="note" style="margin-top:0">1. Télécharge le modèle Excel et remplis-le : titre, lien, logo (image collée dans la feuille « Compétition »), équipes et matchs.<br>2. Importe-le : un aperçu s'affiche, puis l'appli bascule sur la nouvelle compétition. L'actuelle est archivée.</p>
+  <div class="acts" style="margin-top:0">
+   <button class="btn" id="cTpl" type="button">Télécharger le modèle vide</button>
+   <button class="btn" id="cExp" type="button">Exporter la compétition actuelle</button>
+   <label class="btn pri" style="display:inline-flex;align-items:center">Importer le fichier rempli<input type="file" id="cFile" accept=".xlsx,.xls,.csv" hidden></label>
+  </div>
+  <div class="pvw" id="cPrev" hidden></div>
+ </div>
+ <div class="cbox">
+  <h3>Toutes les compétitions</h3>
+  <div id="cList"></div>
+ </div>
+ <div class="acts"><span class="sp"></span><button class="btn blue" type="button" data-close>Fermer</button></div>
+</div></div>
+
+<!-- Collaborateurs -->
+<div class="ov" id="ovR"><div class="dlg">
+ <h2>Collaborateurs</h2>
+ <p class="note">Les 3 premières lettres servent de colonnes. « Statuts » = reçoit une notification à chaque changement de statut (Tagué, Livré…).</p>
+ <div id="rl"></div>
+ <div class="acts"><button class="btn" id="rAdd" type="button">+ Ajouter</button><span class="sp"></span><button class="btn" type="button" data-close>Annuler</button><button class="btn blue" id="rSave" type="button">Enregistrer</button></div>
+</div></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="firebase-config.js"></script>
+<script type="module">
+const SDK="https://www.gstatic.com/firebasejs/10.14.1/";
+const {initializeApp}=await import(SDK+"firebase-app.js");
+const {getAuth,signInWithEmailAndPassword,onAuthStateChanged,signOut}=await import(SDK+"firebase-auth.js");
+const {initializeFirestore,persistentLocalCache,persistentMultipleTabManager,collection,doc,onSnapshot,updateDoc,setDoc,addDoc,deleteDoc,writeBatch,serverTimestamp,deleteField,query,where,getDocs}=await import(SDK+"firebase-firestore.js");
+const COMP=await import("./competition.js");
+
+const CFG=self.FIREBASE_CONFIG;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}}};
+const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove("on"),2600)};
+
+if(!CFG||String(CFG.firebase.apiKey).startsWith("A_REMPLACER")){
+ document.body.innerHTML='<p style="padding:32px;font:16px Poppins,sans-serif">Configuration Firebase manquante : complète <b>firebase-config.js</b> (voir LISEZMOI.md, étape 3).</p>';
+ throw new Error("config manquante");
+}
+
+const PH={prep:"Préparation",prelim:"Tour préliminaire",main:"Tour principal",pres:"Coupe du Président",ko:"Phase finale"};
+const ST={todo:"À faire",run:"En cours",ok:"Tagué",done:"Livré",skip:"Pas à taguer"};
+const TEAMS={GER:"Allemagne",SRB:"Serbie",TUN:"Tunisie",URU:"Uruguay",EGY:"Égypte",ITA:"Italie",CPV:"Cap-Vert",KSA:"Arabie saoudite",CRO:"Croatie",ESP:"Espagne",CHI:"Chili",TUR:"Turquie",ARG:"Argentine",FRA:"France",BRA:"Brésil",KUW:"Koweït",SWE:"Suède",NOR:"Norvège",GRE:"Grèce",QAT:"Qatar",POR:"Portugal",FAR:"Îles Féroé",POL:"Pologne",ALG:"Algérie",DEN:"Danemark",SLO:"Slovénie",USA:"États-Unis",ANG:"Angola",ISL:"Islande",MKD:"Macédoine du Nord",BRN:"Bahreïn",JPN:"Japon"};
+const DEFAULT_TEAM=[{id:"anto",name:"Anto",color:"#2563eb"},{id:"gael",name:"Gaël",color:"#db2777"},{id:"leo",name:"Léo",color:"#16a34a"},{id:"mirko",name:"Mirko",color:"#ea580c"},{id:"nela",name:"Nela",color:"#7c3aed"},{id:"vinc",name:"Vinc",color:"#0891b2",statusAlerts:true}];
+
+const app=initializeApp(CFG.firebase);
+const auth=getAuth(app);
+const fs=initializeFirestore(app,{localCache:persistentLocalCache({tabManager:persistentMultipleTabManager()})});
+
+let matches=[],roster=[],comps=[],current="",isAdmin=false,me=ls.get("me")||"",matchesLoaded=false,teamLoaded=false,editId=null,unsub=[];
+const F={v:location.hash==="#equipe"?"equipe":"planning",ph:ls.get("ph")||"",st:"",sel:"",q:"",who:ls.get("who")||""};
+for(const[k,v] of Object.entries(PH)){$("#fPh").insertAdjacentHTML("beforeend",`<option value="${k}">${v}</option>`);$("#mPh").insertAdjacentHTML("beforeend",`<option value="${k}">${v}</option>`)}
+for(const[k,v] of Object.entries(ST))$("#fSt").insertAdjacentHTML("beforeend",`<option value="${k}">${v}</option>`);
+$("#fPh").value=F.ph;
+
+// ---------- service worker (hors-ligne + notifications)
+let swReg=null;
+if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").then(r=>swReg=r).catch(()=>{})}
+
+// ---------- connexion par mot de passe commun
+const show=id=>{for(const s of["#gate","#whoGate","#app"])$(s).hidden=s!==id};
+$("#gateForm").onsubmit=async e=>{
+ e.preventDefault();const pwd=$("#pwd").value;$("#gateErr").textContent="";
+ try{await signInWithEmailAndPassword(auth,CFG.emailCellule,pwd)}
+ catch(e1){try{await signInWithEmailAndPassword(auth,CFG.emailAdmin,pwd)}
+  catch(e2){$("#gateErr").textContent=navigator.onLine?"Mot de passe incorrect":"Pas de réseau : la première connexion doit se faire en ligne"}}
+};
+onAuthStateChanged(auth,u=>{
+ for(const f of unsub)f();unsub=[];
+ if(!u){show("#gate");return}
+ isAdmin=u.email===CFG.emailAdmin;
+ start();
+});
+
+let unsubM=null;
+function watchMatches(){
+ if(unsubM)unsubM();unsubM=null;matches=[];matchesLoaded=!current;
+ if(!current){route();return}
+ unsubM=onSnapshot(query(collection(fs,"matches"),where("c","==",current)),s=>{matches=s.docs.map(d=>({id:d.id,...d.data()}));matchesLoaded=true;route()},e=>{$("#main").innerHTML=`<p class="empty">Planning inaccessible (${esc(e.code)}).</p>`});
+}
+function start(){
+ unsub.push(()=>{if(unsubM)unsubM();unsubM=null});
+ unsub.push(onSnapshot(doc(fs,"config","team"),s=>{const d=s.exists()?s.data():{};roster=Array.isArray(d.list)?d.list:[];const c=typeof d.current==="string"?d.current:"";teamLoaded=true;if(c!==current){current=c;watchMatches()}else route()},()=>{teamLoaded=true;route()}));
+ unsub.push(onSnapshot(collection(fs,"competitions"),s=>{comps=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>String(b.createdAt||"").localeCompare(String(a.createdAt||"")));route();if($("#ovC").classList.contains("open"))compList()},()=>{}));
+}
+const comp=()=>comps.find(c=>c.id===current)||{};
+function route(){
+ if(!teamLoaded)return;
+ if(roster.length&&!roster.some(r=>r.id===me)){
+  $("#whoList").innerHTML=roster.map(r=>`<button data-me="${esc(r.id)}"><span class="dot" style="--c:${esc(r.color)}"></span>${esc(r.name)}</button>`).join("");
+  show("#whoGate");return;
+ }
+ show("#app");render();refreshToken();
+}
+$("#whoList").onclick=e=>{const b=e.target.closest("[data-me]");if(b)setMe(b.dataset.me)};
+function setMe(id){me=id;ls.set("me",id);if(F.who&&F.who!==id){}route();refreshToken(true)}
+
+// ---------- écritures (signées « by » pour que l'auteur ne reçoive pas sa propre notification)
+function write(id,patch){
+ updateDoc(doc(fs,"matches",id),{...patch,by:me,at:serverTimestamp()}).catch(e=>toast("Échec de l'enregistrement ("+e.code+")"));
+}
+
+// ---------- calculs
+const mins=t=>{const[h,m]=(t||"0:0").split(":").map(Number);return h*60+(m||0)};
+const tname=c=>(comp().teams&&comp().teams[c])||TEAMS[c]||COMP.CODES[c]||c;
+const dayLabel=d=>new Date(d+"T12:00:00").toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"});
+const short=d=>new Date(d+"T12:00:00").toLocaleDateString("fr-FR",{weekday:"short",day:"numeric",month:"short"});
+const ini=n=>(n||"?").slice(0,3);
+const sorted=()=>[...matches].sort((x,y)=>(String(x.d)+String(x.t)).localeCompare(String(y.d)+String(y.t))||(x.o??0)-(y.o??0));
+function conflicts(){
+ const out=new Set(),by={};
+ for(const m of matches)if(m.st!=="skip")for(const w of m.who||[])(by[w+"|"+m.d]??=[]).push(m);
+ for(const list of Object.values(by))for(let i=0;i<list.length;i++)for(let j=i+1;j<list.length;j++)
+  if(Math.abs(mins(list[i].t)-mins(list[j].t))<150)for(const x of(list[i].who||[]).filter(x=>(list[j].who||[]).includes(x))){out.add(list[i].id+"|"+x);out.add(list[j].id+"|"+x)}
+ return out;
+}
+function filtered(){
+ const q=F.q.trim().toLowerCase();
+ return sorted().filter(m=>{
+  const n=(m.who||[]).length;
+  if(F.ph&&m.ph!==F.ph)return false;
+  if(F.st&&(m.st||"todo")!==F.st)return false;
+  if(F.sel==="pick"&&!n)return false;
+  if(F.sel==="free"&&(n||m.st==="skip"))return false;
+  if(F.sel==="live"&&m.st==="skip")return false;
+  if(F.sel==="skip"&&m.st!=="skip")return false;
+  if(F.who&&!(m.who||[]).includes(F.who))return false;
+  if(q&&![m.a,m.b,tname(m.a),tname(m.b),m.v,m.g,m.note].join(" ").toLowerCase().includes(q))return false;
+  return true;
+ });
+}
+
+// ---------- affichage
+function header(){
+ const C=comp(),logo=typeof C.logo==="string"&&C.logo.startsWith("data:image/")?C.logo:"";
+ $("#logo").hidden=!logo;if(logo)$("#logoImg").src=logo;
+ $("#title").innerHTML=`${esc(C.name||"Taguage")} <b>·</b> taguage`;document.title=(C.name||"Taguage")+" · taguage";
+ $("#subt").textContent=(C.sub?C.sub+" · ":"")+"cellule vidéo équipe de France";
+ const url=/^https?:\/\//i.test(C.url||"")?C.url:"";$("#offLink").hidden=!url;if(url)$("#offLink").href=url;
+ const skip=matches.filter(m=>m.st==="skip").length,pick=matches.filter(m=>(m.who||[]).length&&m.st!=="skip"),ok=pick.filter(m=>m.st==="ok"||m.st==="done").length,run=pick.filter(m=>m.st==="run").length;
+ const p=x=>pick.length?x/pick.length*100:0;
+ $("#prog").innerHTML=`<div class="cond">${ok} / ${pick.length} <span style="font-size:17px;font-weight:500">tagués ou livrés</span></div>
+  <div class="bar" role="img" aria-label="${ok} matchs tagués sur ${pick.length} attribués"><i style="width:${p(ok)}%;background:var(--yel)"></i><i style="width:${p(run)}%;background:#ffffff99"></i></div>
+  <div class="sub" style="font-size:12px">${matches.length} matchs · ${matches.length-pick.length-skip} non attribués · ${skip} pas à taguer</div>`;
+ $("#load").innerHTML=roster.map(r=>{const mine=matches.filter(m=>(m.who||[]).includes(r.id)&&m.st!=="skip"),d=mine.filter(m=>m.st==="ok"||m.st==="done").length;
+  return `<button class="lc${r.id===me?" me":""}" data-who="${esc(r.id)}" aria-pressed="${F.who===r.id}" style="--c:${esc(r.color)}"><span class="n"><span class="dot"></span>${esc(r.name)}</span><span class="k">${mine.length} match${mine.length>1?"s":""} · ${d} tagué${d>1?"s":""}</span></button>`}).join("");
+ $("#bMine").setAttribute("aria-pressed",F.who===me&&!!me);
+}
+const pencil='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
+function rowHTML(m,cf){
+ const who=m.who||[],st=m.st||"todo";
+ const chips=roster.map(r=>{const on=who.includes(r.id),w=cf.has(m.id+"|"+r.id);
+  return `<button class="ch${on?" on":""}${w?" warn":""}" style="--c:${esc(r.color)}" data-id="${esc(m.id)}" data-r="${esc(r.id)}" aria-pressed="${on}" title="${esc(r.name)}${w?" — chevauchement horaire ce jour-là":""}">${esc(ini(r.name))}</button>`}).join("");
+ return `<div class="row${who.length?"":" off"}${st==="skip"?" skip":""}">
+  <button class="t" data-ed="${esc(m.id)}" title="Modifier l'horaire">${esc(m.t||"–")}${m.prov?"<small>à confirmer</small>":""}</button>
+  <div class="mt"><b>${esc(m.a)} – ${esc(m.b)}</b>${m.ph==="prep"?'<span class="tag">Prépa</span>':""}
+   <div>${esc(tname(m.a))} – ${esc(tname(m.b))}${m.g?" · "+esc(m.g):""}${m.v?" · "+esc(m.v):""}</div>
+   ${m.note?`<div class="nt">${esc(m.note)}</div>`:""}</div>
+  <div class="chips">${chips}</div>
+  <select class="st" data-id="${esc(m.id)}" data-s="${st}" aria-label="Statut">${Object.entries(ST).map(([k,v])=>`<option value="${k}"${k===st?" selected":""}>${v}</option>`).join("")}</select>
+  <button class="mod" data-ed="${esc(m.id)}" aria-label="Modifier le match" title="Modifier le match">${pencil}</button></div>`;
+}
+function planning(list){
+ if(!list.length)return `<p class="empty">Aucun match ne correspond aux filtres.</p>`;
+ const cf=conflicts(),days={};
+ for(const m of list)(days[m.d]??=[]).push(m);
+ const head=`<div class="head"><span>Heure</span><span>Match</span><span class="cn">${roster.map(r=>`<span title="${esc(r.name)}">${esc(ini(r.name))}</span>`).join("")}</span><span>Statut</span><span></span></div>`;
+ return head+Object.entries(days).map(([d,ms])=>{const n=ms.filter(m=>(m.who||[]).length&&m.st!=="skip").length;
+  return `<div class="day"><h2>${esc(dayLabel(d))}</h2><span>${ms.length} match${ms.length>1?"s":""} · ${n} attribué${n>1?"s":""}</span></div>`+ms.map(m=>rowHTML(m,cf)).join("")}).join("");
+}
+function equipe(list){
+ const rs=F.who?roster.filter(r=>r.id===F.who):roster;
+ return `<div class="cols">${rs.map(r=>{const mine=list.filter(m=>(m.who||[]).includes(r.id));
+  return `<section class="card" style="--c:${esc(r.color)}"><h2 class="cond"><span class="dot"></span>${esc(r.name)}</h2><span class="note">${mine.length} match${mine.length>1?"s":""}</span>
+   <ul>${mine.map(m=>`<li><span>${esc(short(m.d))} ${esc(m.t||"")}</span><span><b class="cond" style="font-size:17px">${esc(m.a)} – ${esc(m.b)}</b></span><span class="s ${m.st||"todo"}">${ST[m.st||"todo"]}</span></li>`).join("")||'<li><span></span><span class="note">Rien d\'attribué</span><span></span></li>'}</ul></section>`}).join("")}</div>`;
+}
+function render(){
+ if($("#app").hidden)return;
+ document.documentElement.style.setProperty("--nc",Math.max(roster.length,1));
+ document.documentElement.style.setProperty("--chips",`${Math.max(roster.length,1)*40-4}px`);
+ for(const b of document.querySelectorAll("#views button"))b.setAttribute("aria-pressed",b.dataset.v===F.v);
+ header();
+ if(!matchesLoaded){$("#main").innerHTML=`<p class="empty">Chargement du planning…</p>`;return}
+ if(!matches.length){$("#main").innerHTML=`<p class="empty">${current?"Aucun match dans cette compétition.":"Aucune compétition installée."}${isAdmin?" Roue dentée › « Installer le Mondial 2027 » ou « Compétition » pour importer un fichier.":" Vincent doit d'abord installer une compétition."}</p>`;return}
+ $("#main").innerHTML=(F.v==="equipe"?equipe(filtered()):planning(filtered()))
+  +`<p class="note">Horaires provisoires (l'IHF fait foi). Clique sur l'heure ou le crayon pour saisir les qualifiés et l'horaire définitif, puis décoche « Horaire à confirmer ». Cadre rouge sur une initiale = deux matchs à moins de 2 h 30 pour la même personne.</p>`;
+}
+
+// ---------- événements
+$("#views").onclick=e=>{const v=e.target.closest("button")?.dataset.v;if(v){history.replaceState(null,"",v==="equipe"?"#equipe":location.pathname);F.v=v;render()}};
+$("#fPh").onchange=e=>{F.ph=e.target.value;ls.set("ph",F.ph);render()};
+$("#fSt").onchange=e=>{F.st=e.target.value;render()};
+$("#fSel").onchange=e=>{F.sel=e.target.value;render()};
+$("#q").oninput=e=>{F.q=e.target.value;clearTimeout(F.qt);F.qt=setTimeout(render,150)};
+const setWho=w=>{F.who=w;ls.set("who",w||null);render()};
+$("#load").onclick=e=>{const b=e.target.closest("[data-who]");if(b)setWho(F.who===b.dataset.who?"":b.dataset.who)};
+$("#bMine").onclick=()=>setWho(F.who===me?"":me);
+$("#main").addEventListener("click",e=>{
+ const c=e.target.closest(".ch");
+ if(c){const m=matches.find(x=>x.id===c.dataset.id);if(!m)return;const who=new Set(m.who||[]);who.has(c.dataset.r)?who.delete(c.dataset.r):who.add(c.dataset.r);m.who=[...who];render();write(m.id,{who:m.who});return}
+ const ed=e.target.closest("[data-ed]");if(ed)openMatch(ed.dataset.ed);
+});
+$("#main").addEventListener("change",e=>{const s=e.target.closest(".st");if(!s)return;const m=matches.find(x=>x.id===s.dataset.id);if(m){m.st=s.value;render();write(m.id,{st:m.st})}});
+for(const b of document.querySelectorAll("[data-close]"))b.onclick=()=>b.closest(".ov").classList.remove("open");
+for(const o of document.querySelectorAll(".ov"))o.addEventListener("click",e=>{if(e.target===o)o.classList.remove("open")});
+addEventListener("keydown",e=>{if(e.key==="Escape")for(const o of document.querySelectorAll(".ov.open"))o.classList.remove("open")});
+const setNet=()=>{$("#net").hidden=navigator.onLine};addEventListener("online",setNet);addEventListener("offline",setNet);setNet();
+
+// ---------- fenêtre match
+function openMatch(id){
+ editId=id;const m=matches.find(x=>x.id===id)||{d:"2027-01-13",t:"18:00",ph:F.ph||"prep"};const f=$("#fm");
+ for(const k of["d","t","a","b","ph","g","v","note"])f.elements[k].value=m[k]??"";
+ f.elements.prov.checked=!!m.prov;
+ $("#fmT").textContent=id?"Modifier le match":"Nouveau match";
+ $("#bDel").hidden=!id;$("#bDel").textContent="Supprimer";$("#bDel").dataset.arm="";
+ $("#ovM").classList.add("open");
+}
+$("#bAdd").onclick=()=>{if(!current){toast("Installe d'abord une compétition");return}openMatch(null)};
+$("#fm").onsubmit=e=>{
+ e.preventDefault();const f=e.target,data={};
+ for(const k of["d","t","a","b","ph","g","v","note"])data[k]=f.elements[k].value.trim();
+ data.a=data.a.toUpperCase();data.b=data.b.toUpperCase();data.prov=f.elements.prov.checked;
+ $("#ovM").classList.remove("open");
+ if(editId){const m=matches.find(x=>x.id===editId);if(m)Object.assign(m,data);render();write(editId,data)}
+ else{addDoc(collection(fs,"matches"),{...data,c:current,who:[],st:"todo",o:Date.now(),by:me,at:serverTimestamp()}).catch(e=>toast("Échec ("+e.code+")"));toast("Match ajouté")}
+};
+$("#bDel").onclick=()=>{
+ const b=$("#bDel");if(!b.dataset.arm){b.dataset.arm="1";b.textContent="Confirmer la suppression";return}
+ $("#ovM").classList.remove("open");
+ // on signe la suppression avant d'effacer, pour que la notification n'aille pas à son auteur
+ updateDoc(doc(fs,"matches",editId),{by:me}).catch(()=>{}).finally(()=>deleteDoc(doc(fs,"matches",editId)).then(()=>toast("Match supprimé")).catch(e=>toast("Suppression refusée")));
+};
+
+// ---------- copie pour Excel
+$("#bCopy").onclick=async()=>{
+ const rows=[["Date","Heure","Match","Phase","Groupe","Lieu",...roster.map(r=>r.name),"Statut","Consignes"]];
+ for(const m of filtered())rows.push([m.d,m.t,`${m.a} ${m.b}`,PH[m.ph]||"",m.g||"",m.v||"",...roster.map(r=>(m.who||[]).includes(r.id)?"X":""),ST[m.st||"todo"],(m.note||"").replace(/\s+/g," ")]);
+ const txt=rows.map(r=>r.join("\t")).join("\n");
+ try{await navigator.clipboard.writeText(txt);toast("Copié — colle dans Excel (Ctrl+V)")}
+ catch(e){const ta=document.createElement("textarea");ta.value=txt;document.body.append(ta);ta.select();try{document.execCommand("copy");toast("Copié")}catch(_){toast("Copie impossible ici")}ta.remove()}
+};
+
+// ---------- réglages
+const isIOS=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+function notifState(){
+ const b=$("#bNotif"),s=$("#nStatus");b.hidden=false;
+ if(isIOS&&!standalone){s.textContent="Sur iPhone/iPad, les notifications ne marchent qu'une fois l'appli ajoutée à l'écran d'accueil : bouton Partager › « Sur l'écran d'accueil », puis ouvre l'appli depuis son icône.";b.hidden=true;return}
+ if(!("Notification" in self)){s.textContent="Ce navigateur ne gère pas les notifications.";b.hidden=true;return}
+ if(Notification.permission==="granted"&&ls.get("tok")){s.textContent="Activées sur cet appareil : tu es prévenu quand on t'attribue un match, quand un de tes horaires change ou quand une consigne est ajoutée.";b.textContent="Réactiver (si tu n'en reçois plus)";return}
+ if(Notification.permission==="denied"){s.textContent="Notifications bloquées : autorise-les dans les réglages du navigateur ou du téléphone pour ce site, puis reviens ici.";b.hidden=true;return}
+ s.textContent="Pas encore activées sur cet appareil.";b.textContent="Activer les notifications sur cet appareil";
+}
+$("#bSet").onclick=()=>{
+ $("#sMe").innerHTML=roster.map(r=>`<option value="${esc(r.id)}"${r.id===me?" selected":""}>${esc(r.name)}</option>`).join("");
+ $("#adminZone").hidden=!isAdmin;$("#bImport").hidden=comps.some(c=>c.id==="mondial-2027");
+ notifState();$("#ovS").classList.add("open");
+};
+$("#sMe").onchange=e=>setMe(e.target.value);
+$("#bOut").onclick=()=>{$("#ovS").classList.remove("open");signOut(auth)};
+
+let messaging=null;
+async function getMessagingSafe(){
+ if(messaging)return messaging;
+ const m=await import(SDK+"firebase-messaging.js");
+ if(!(await m.isSupported()))return null;
+ messaging={api:m,inst:m.getMessaging(app)};
+ m.onMessage(messaging.inst,p=>toast((p.notification?.title||"")+" — "+(p.notification?.body||"")));
+ return messaging;
+}
+async function refreshToken(force){
+ // à chaque lancement : rattache le jeton de notification de cet appareil à la bonne personne
+ if(!me||!("Notification" in self)||Notification.permission!=="granted")return;
+ if(!force&&sessionStorage.getItem("tokDone"))return;
+ try{
+  const M=await getMessagingSafe();if(!M)return;
+  const reg=swReg||await navigator.serviceWorker.ready;
+  const token=await M.api.getToken(M.inst,{vapidKey:CFG.vapidKey,serviceWorkerRegistration:reg});
+  if(!token)return;
+  await setDoc(doc(fs,"tokens",token),{who:me,ua:navigator.userAgent.slice(0,150),at:serverTimestamp()});
+  ls.set("tok",token);try{sessionStorage.setItem("tokDone","1")}catch(e){}
+ }catch(e){console.warn(e)}
+}
+$("#bNotif").onclick=async()=>{
+ try{
+  const perm=await Notification.requestPermission();
+  if(perm!=="granted"){notifState();return}
+  if(!(await getMessagingSafe())){toast("Notifications non prises en charge ici");return}
+  await refreshToken(true);notifState();toast(ls.get("tok")?"Notifications activées":"Activation impossible, réessaie en ligne");
+ }catch(e){toast("Activation impossible ("+(e.code||e.message)+")")}
+};
+
+// ---------- administration
+let draft=[];
+const rlRender=()=>{$("#rl").innerHTML=draft.map((r,i)=>`<div class="rl"><input type="color" value="${esc(r.color)}" data-i="${i}" data-k="color" aria-label="Couleur"><input value="${esc(r.name)}" data-i="${i}" data-k="name" aria-label="Nom"><label class="chk"><input type="checkbox" data-i="${i}" data-k="statusAlerts"${r.statusAlerts?" checked":""}>Statuts</label><button class="ed" data-rm="${i}" aria-label="Retirer">✕</button></div>`).join("")};
+$("#bTeam").onclick=()=>{draft=roster.map(r=>({...r}));rlRender();$("#ovS").classList.remove("open");$("#ovR").classList.add("open")};
+$("#rl").oninput=e=>{const t=e.target;if(t.dataset.k)draft[t.dataset.i][t.dataset.k]=t.type==="checkbox"?t.checked:t.value};
+$("#rl").onclick=e=>{const b=e.target.closest("[data-rm]");if(b){draft.splice(+b.dataset.rm,1);rlRender()}};
+$("#rAdd").onclick=()=>{draft.push({id:"c"+Date.now().toString(36),name:"",color:"#64748b",statusAlerts:false});rlRender()};
+$("#rSave").onclick=()=>{const list=draft.filter(r=>r.name.trim()).map(r=>({...r,name:r.name.trim()}));$("#ovR").classList.remove("open");
+ setDoc(doc(fs,"config","team"),{list},{merge:true}).then(()=>toast("Équipe enregistrée")).catch(()=>toast("Réservé au compte administrateur"))};
+// ---------- installation du Mondial 2027 (calendrier fourni)
+async function commitCompetition(id,meta,list){
+ // écrit la compétition + ses matchs par paquets, puis bascule l'appli dessus
+ const chunks=[];for(let i=0;i<list.length;i+=400)chunks.push(list.slice(i,i+400));
+ let b=writeBatch(fs);b.set(doc(fs,"competitions",id),{...meta,createdAt:new Date().toISOString()});await b.commit();
+ for(const ch of chunks){b=writeBatch(fs);for(const m of ch){const{id:mid,...d}=m;b.set(mid?doc(fs,"matches",mid):doc(collection(fs,"matches")),{...d,c:id,by:me||"admin"})}await b.commit()}
+ await setDoc(doc(fs,"config","team"),roster.length?{current:id}:{current:id,list:DEFAULT_TEAM},{merge:true});
+}
+$("#bImport").onclick=async()=>{
+ const b=$("#bImport");b.disabled=true;b.textContent="Installation…";
+ try{
+  const cal=await (await fetch("calendrier.json",{cache:"no-store"})).json();
+  await commitCompetition("mondial-2027",{name:"Mondial 2027",sub:"Allemagne, 13 – 31 janvier 2027",url:"https://handball2027.de/fr/calendrier/",teams:TEAMS},
+   cal.map(m=>({...m,id:"wc27-"+m.id,who:[],st:"todo",note:""})));
+  toast(cal.length+" matchs installés");$("#ovS").classList.remove("open");
+ }catch(e){toast("Échec de l'installation ("+(e.code||e.message)+")");b.disabled=false;b.textContent="Installer le Mondial 2027 (112 matchs)"}
+};
+
+// ---------- fenêtre Compétition
+let cLogo=null,parsed=null;
+function compForm(){const C=comp();$("#cName").value=C.name||"";$("#cSub").value=C.sub||"";$("#cUrl").value=C.url||"";cLogo=C.logo||"";logoPv()}
+function logoPv(){$("#cLogoPv").innerHTML=cLogo?`<img src="${esc(cLogo)}" alt="Logo">`:"Pas de logo"}
+function compList(){
+ $("#cList").innerHTML=comps.length?comps.map(c=>`<div class="arch"><span><b>${esc(c.name||c.id)}</b>${c.id===current?'<span class="cur">affichée</span>':""}<br><small class="note">${esc(c.sub||"")}</small></span>
+  ${c.id===current?"":`<button class="btn" data-open="${esc(c.id)}">Afficher</button><button class="btn" data-delc="${esc(c.id)}">Supprimer</button>`}</div>`).join(""):'<p class="note">Aucune compétition pour l\'instant.</p>';
+}
+$("#bComp").onclick=()=>{$("#ovS").classList.remove("open");compForm();compList();$("#cPrev").hidden=true;parsed=null;$("#ovC").classList.add("open")};
+$("#cLogoIn").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;try{cLogo=await COMP.resizeImage(f);logoPv()}catch(err){toast(err.message)}};
+$("#cLogoDel").onclick=()=>{cLogo="";logoPv()};
+$("#cSave").onclick=()=>{
+ if(!current){toast("Aucune compétition affichée : importe d'abord un fichier");return}
+ setDoc(doc(fs,"competitions",current),{name:$("#cName").value.trim(),sub:$("#cSub").value.trim(),url:$("#cUrl").value.trim(),logo:cLogo||deleteField()},{merge:true})
+  .then(()=>toast("Compétition enregistrée")).catch(()=>toast("Réservé au compte administrateur"));
+};
+$("#cTpl").onclick=()=>COMP.downloadTemplate({roster},"competition-modele.xlsx").catch(e=>toast(e.message));
+$("#cExp").onclick=()=>{const C=comp();COMP.downloadTemplate({meta:C,teams:C.teams||{},matches:sorted(),roster},(C.name||"competition").replace(/[^\w-]+/g,"-")+".xlsx").catch(e=>toast(e.message))};
+$("#cFile").onchange=async e=>{
+ const f=e.target.files[0];e.target.value="";if(!f)return;
+ const box=$("#cPrev");box.hidden=false;box.innerHTML='<p class="note">Lecture du fichier…</p>';
+ try{parsed=await COMP.parseFile(f,roster)}catch(err){box.innerHTML=`<p class="warn">Fichier illisible : ${esc(err.message)}</p>`;parsed=null;return}
+ const P=parsed,ds=P.matches.map(m=>m.d).sort(),nWho=P.matches.filter(m=>m.who.length).length;
+ if(!P.meta.name)P.meta.name=f.name.replace(/\.[^.]+$/,"");
+ box.innerHTML=`<p class="sum">${esc(P.meta.name)} — ${P.matches.length} match${P.matches.length>1?"s":""}${ds.length?` du ${esc(short(ds[0]))} au ${esc(short(ds.at(-1)))}`:""}${nWho?` · ${nWho} déjà attribué${nWho>1?"s":""}`:""}</p>
+  <div class="f"><label class="w">Nom<input id="pName" value="${esc(P.meta.name)}"></label><label class="w">Sous-titre<input id="pSub" value="${esc(P.meta.sub)}"></label><label class="w">Lien du site officiel<input id="pUrl" value="${esc(P.meta.url)}"></label></div>
+  <div class="lg"><div class="pv">${P.logo?`<img src="${esc(P.logo)}" alt="Logo">`:"Pas de logo dans le fichier"}</div>${!P.logo&&comp().logo?'<label class="chk"><input type="checkbox" id="pKeep"> Reprendre le logo actuel</label>':""}</div>
+  ${P.format==="positionnement"?'<p class="note">Format « positionnement des matchs » reconnu (lignes de dates, croix par collaborateur).</p>':""}
+  ${P.warnings.slice(0,8).map(w=>`<p class="warn">${esc(w)}</p>`).join("")}${P.warnings.length>8?`<p class="warn">… et ${P.warnings.length-8} autres lignes ignorées</p>`:""}
+  <table><thead><tr><th>Date</th><th>Heure</th><th>Match</th><th>Groupe</th><th>Attribué</th></tr></thead><tbody>
+  ${P.matches.slice(0,8).map(m=>`<tr><td>${esc(short(m.d))}</td><td>${esc(m.t)}</td><td>${esc(m.a)} – ${esc(m.b)}</td><td>${esc(m.g)}</td><td>${esc(m.who.map(w=>(roster.find(r=>r.id===w)||{}).name).join(", "))}</td></tr>`).join("")}
+  </tbody></table>${P.matches.length>8?`<p class="note">… et ${P.matches.length-8} autres matchs</p>`:""}
+  <div class="acts">${P.matches.length?'<button class="btn pri" id="pGo" type="button">Créer cette compétition et l\'afficher</button>':""}<button class="btn" id="pCancel" type="button">Annuler</button></div>`;
+ $("#pCancel").onclick=()=>{box.hidden=true;parsed=null};
+ if($("#pGo"))$("#pGo").onclick=async()=>{
+  const b=$("#pGo");b.disabled=true;b.textContent="Création…";
+  const used={};for(const m of P.matches)for(const c of[m.a,m.b])if(COMP.CODES[c]||TEAMS[c])used[c]=COMP.CODES[c]||TEAMS[c];
+  const logo=P.logo||($("#pKeep")?.checked?comp().logo:"");
+  const meta={name:$("#pName").value.trim()||"Compétition",sub:$("#pSub").value.trim(),url:$("#pUrl").value.trim(),teams:{...used,...P.teams}};
+  if(logo)meta.logo=logo;
+  const id=(meta.name.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"competition")+"-"+Date.now().toString(36);
+  try{await commitCompetition(id,meta,P.matches);toast(P.matches.length+" matchs importés — "+meta.name);$("#ovC").classList.remove("open");parsed=null}
+  catch(err){toast("Échec de l'import ("+(err.code||err.message)+")");b.disabled=false;b.textContent="Réessayer"}
+ };
+};
+$("#cList").onclick=async e=>{
+ const o=e.target.closest("[data-open]"),d=e.target.closest("[data-delc]");
+ if(o){setDoc(doc(fs,"config","team"),{current:o.dataset.open},{merge:true}).then(()=>{toast("Compétition affichée");$("#ovC").classList.remove("open")}).catch(()=>toast("Réservé au compte administrateur"))}
+ if(d){
+  if(!d.dataset.arm){d.dataset.arm="1";d.textContent="Confirmer (efface ses matchs)";return}
+  d.disabled=true;d.textContent="Suppression…";
+  try{const s=await getDocs(query(collection(fs,"matches"),where("c","==",d.dataset.delc)));const ids=s.docs.map(x=>x.id);
+   for(let i=0;i<ids.length;i+=400){const b=writeBatch(fs);for(const id of ids.slice(i,i+400))b.delete(doc(fs,"matches",id));await b.commit()}
+   await deleteDoc(doc(fs,"competitions",d.dataset.delc));toast("Compétition supprimée")}
+  catch(err){toast("Suppression impossible ("+(err.code||err.message)+")");d.disabled=false}
+ }
+};
+</script>
+</body>
+</html>

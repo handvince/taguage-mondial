@@ -1,0 +1,30 @@
+rules_version = '2';
+// Règles de sécurité de la base : seuls les appareils connectés avec le mot de passe de la cellule
+// (ou le mot de passe administrateur) lisent et modifient. L'équipe et le logo : administrateur seulement.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function connecte() { return request.auth != null; }
+    // Doit être identique à emailAdmin dans firebase-config.js
+    function admin() { return connecte() && request.auth.token.email == 'admin@taguage-mondial.app'; }
+
+    match /matches/{id} {
+      allow read, write: if connecte();
+    }
+    // Compétitions (titre, logo, lien, équipes) : lecture pour tous, modification par l'administrateur
+    match /competitions/{id} {
+      allow read: if connecte();
+      allow write: if admin();
+    }
+    match /config/{id} {
+      allow read: if connecte();
+      allow write: if admin();
+    }
+    // Jetons de notification des appareils : chacun peut enregistrer le sien, personne ne peut les lire
+    match /tokens/{token} {
+      allow create, update: if connecte()
+        && request.resource.data.keys().hasOnly(['who', 'ua', 'at'])
+        && request.resource.data.who is string;
+      allow read, delete: if admin();
+    }
+  }
+}
