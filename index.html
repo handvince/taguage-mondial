@@ -137,6 +137,32 @@ main{max-width:1240px;margin:auto;padding:8px max(4vw,16px) calc(64px + env(safe
 .arch{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line)}
 .arch span{flex:1}
 .cur{font-size:11px;font-weight:600;background:var(--blue);color:#fff;border-radius:4px;padding:1px 6px;margin-left:6px}
+/* mode d'emploi (même présentation que Temps de jeu) */
+.hdlg{width:min(1100px,100%)}
+.hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.hcard{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.hcard h5{margin:0;display:flex;align-items:center;gap:10px;font-family:"Barlow Condensed","Arial Narrow",sans-serif;text-transform:uppercase;font-size:20px;font-weight:600}
+.hcard h5 i{font-style:normal;display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--yel);color:#121722;font-size:18px;flex:none}
+.hcard.adm h5 i{background:var(--blue);color:#fff}
+.hvis{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;min-height:84px;padding:10px;border-radius:10px;background:var(--blue)}
+.hcard ul{margin:0;padding-left:18px;font-size:14px;line-height:1.45}
+.hcard li{margin:3px 0}.hcard li b{color:var(--blue2);font-weight:600}
+.hx-arrow{font-size:22px;color:var(--yel);font-weight:700}
+.hx-btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px;border-radius:9px;font-size:14px;font-weight:600;background:#fff;color:#121722;white-space:nowrap}
+.hx-btn.y{background:var(--yel)}
+.hx-btn.sm{height:30px;font-size:12px;padding:0 9px}
+.hx-chip{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:8px;border:1.5px solid #ffffff99;color:#fff;font-size:11px;font-weight:600}
+.hx-chip.on{background:var(--c);border-color:#fff}
+.hx-chip.warn{box-shadow:0 0 0 2px var(--blue),0 0 0 4px var(--red)}
+.hx-time{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-size:26px;font-weight:600;color:#fff;line-height:1;text-align:center}
+.hx-time small{display:block;font:11px Poppins,sans-serif;color:var(--yel)}
+.hx-aff{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-size:24px;font-weight:600;color:#fff}
+.hx-aff s{opacity:.6}
+.hx-bub{background:#fff;color:#121722;border-radius:14px 14px 14px 2px;padding:6px 12px;font-weight:600;font-size:13px;max-width:240px;box-shadow:0 2px 6px #0003}
+.hx-bub small{display:block;font-weight:400;color:var(--mute)}
+.hx-tap{font-size:20px}
+.hfoot{margin:16px 0 0;color:var(--mute);font-size:12px;text-align:center}
+@media(max-width:700px){.hgrid{grid-template-columns:1fr}}
 .toast{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:8px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:30;max-width:90vw}
 .toast.on{opacity:1}
 @media(prefers-reduced-motion:reduce){.toast{transition:none}}
@@ -185,6 +211,7 @@ main{max-width:1240px;margin:auto;padding:8px max(4vw,16px) calc(64px + env(safe
    <a class="offl" id="offLink" target="_blank" rel="noopener" hidden>Calendrier officiel ↗</a>
   </div></div>
   <div class="side"><div class="prog" id="prog"></div>
+   <button class="gear" id="bHelp" aria-label="Mode d'emploi" title="Mode d'emploi" style="font:700 22px Poppins,sans-serif">?</button>
    <button class="gear" id="bSet" aria-label="Réglages" title="Réglages"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
   </div>
  </div>
@@ -237,7 +264,14 @@ main{max-width:1240px;margin:auto;padding:8px max(4vw,16px) calc(64px + env(safe
   </div>
   <div class="acts"><button class="btn pri" id="bImport" type="button" hidden>Installer le Mondial 2027 (112 matchs)</button></div>
  </div>
+ <div class="acts"><button class="btn" id="bHelp2" type="button">Mode d'emploi</button></div>
  <div class="acts"><button class="btn" id="bOut" type="button">Se déconnecter</button><span class="sp"></span><button class="btn blue" type="button" data-close>Fermer</button></div>
+</div></div>
+
+<!-- Mode d'emploi -->
+<div class="ov" id="ovH"><div class="dlg hdlg">
+ <div class="acts" style="margin:0 0 12px"><h2 style="margin:0">Mode d'emploi</h2><span class="sp"></span><button class="btn blue" type="button" data-close>Fermer</button></div>
+ <div id="helpBody"></div>
 </div></div>
 
 <!-- Compétition -->
@@ -355,7 +389,7 @@ function route(){
  show("#app");render();refreshToken();
 }
 $("#whoList").onclick=e=>{const b=e.target.closest("[data-me]");if(b)setMe(b.dataset.me)};
-function setMe(id){me=id;ls.set("me",id);if(F.who&&F.who!==id){}route();refreshToken(true)}
+function setMe(id){const first=!me;me=id;ls.set("me",id);route();refreshToken(true);if(first&&!ls.get("tutoVu"))setTimeout(openHelp,300)}
 
 // ---------- écritures (signées « by » pour que l'auteur ne reçoive pas sa propre notification)
 function write(id,patch){
@@ -552,6 +586,48 @@ $("#bNotif").onclick=async()=>{
  }catch(e){toast("Activation impossible ("+(e.code||e.message)+")")}
 };
 
+
+// ---------- mode d'emploi (cartes numérotées, comme Temps de jeu)
+const hB=(l,c)=>`<span class="hx-btn ${c||""}">${l}</span>`;
+const hA='<span class="hx-arrow">→</span>';
+const hC=(ini,col,cls)=>`<span class="hx-chip ${cls||""}" style="--c:${col}">${ini}</span>`;
+const hBub=(t,sub)=>`<span class="hx-bub">${t}${sub?`<small>${sub}</small>`:""}</span>`;
+function helpHtml(){
+ const C=(i,title,vis,lines,adm)=>`<div class="hcard${adm?" adm":""}"><h5><i>${i}</i>${title}</h5><div class="hvis">${vis}</div><ul>${lines.map(l=>"<li>"+l+"</li>").join("")}</ul></div>`;
+ const me1=(roster.find(r=>r.id===me)||roster[0]||{name:"Anto",color:"#2563eb"});
+ const mi=esc(ini(me1.name)),mc=esc(me1.color);
+ let n=0;const cards=[
+ C(++n,"Installer l'appli",hB("Partager")+hA+hB("Sur l'écran d'accueil","y sm"),
+  ["<b>iPhone / iPad</b> : ouvre le lien dans <b>Safari</b> › Partager › <b>Sur l'écran d'accueil</b>. Ouvre ensuite l'appli <b>depuis son icône</b>.","<b>Android</b> : Chrome › menu ⋮ › <b>Installer l'application</b>.","<b>Mac / PC</b> : Chrome ou Edge › icône <b>Installer</b> dans la barre d'adresse."]),
+ C(++n,"Se connecter",hB("••••••••")+hA+hB(esc(me1.name),"y"),
+  ["Tape le <b>mot de passe de la cellule</b> : l'appareil le retient.","Choisis <b>ton prénom</b>. Changement possible dans la roue dentée › <b>Je suis</b>."]),
+ C(++n,"Activer les notifications",hB("⚙")+hA+hB("Activer les notifications","y sm"),
+  ["Roue dentée › <b>Activer les notifications</b> › Autoriser.","À faire <b>sur chaque appareil</b> où tu veux être prévenu.","iPhone : seulement depuis l'appli <b>ajoutée à l'écran d'accueil</b> (iOS 16.4 mini)."]),
+ C(++n,"Lire le planning",`<span class="hx-time">20:30<small>à confirmer</small></span><span class="hx-aff">FRA – KUW</span>${hBub("Focus défense","consigne")}`,
+  ["Un <b>jour</b> par bloc, une <b>ligne par match</b> : heure, affiche, groupe, ville.","<b>à confirmer</b> : horaire encore provisoire.","Encadré jaune : <b>consigne de taguage</b> de Vincent.","Bouton jaune <b>Calendrier officiel</b> sous le titre : le site de la compétition."]),
+ C(++n,"Prendre ou lâcher un match",hC(mi,mc)+hA+hC(mi,mc,"on")+'<span class="hx-tap">👆</span>',
+  ["Touche <b>tes initiales</b> sur la ligne du match : la case se colore, le match est à toi.","Touche-les à nouveau pour <b>le lâcher</b>.","Plusieurs personnes possibles sur un même match."]),
+ C(++n,"Dire où tu en es",hB("À faire","sm")+hA+hB("En cours","sm")+hA+hB("Tagué","sm")+hA+hB("Livré","y sm"),
+  ["Menu <b>Statut</b> au bout de la ligne.","<b>Tagué</b> : taguage fini · <b>Livré</b> : envoyé / déposé.","Vincent est prévenu à <b>chaque changement de statut</b>."]),
+ C(++n,"Corriger un match",'<span class="hx-time">18:00</span>'+hA+hB("✎")+hA+hB("Horaire · Équipes · Consigne","sm"),
+  ["Touche l'<b>heure</b> ou le <b>crayon</b>.","Horaire confirmé : corrige l'heure et <b>décoche « Horaire à confirmer »</b>.","Tour principal / finales : remplace <b>1A – 3B</b> par les vraies équipes.","Les collègues du match sont <b>prévenus automatiquement</b>."]),
+ C(++n,"Ne voir que tes matchs",hB("Mes matchs","y")+hB("Par collaborateur"),
+  ["<b>Mes matchs</b> (ou ton nom dans le bandeau bleu) : seulement les tiens.","<b>Par collaborateur</b> : la liste de chacun, avec les statuts.","Filtres : <b>phase</b>, <b>statut</b>, <b>attribués / non attribués</b>, recherche par équipe ou ville."]),
+ C(++n,"Matchs sans intérêt, chevauchements",'<span class="hx-aff"><s>ITA – KSA</s></span>'+hB("Pas à taguer","sm")+hC(mi,mc,"on warn"),
+  ["Statut <b>Pas à taguer</b> : match barré, sorti des compteurs.","<b>Cadre rouge</b> autour d'initiales : deux matchs à moins de 2 h 30 pour la même personne, à revoir."]),
+ C(++n,"Les notifications reçues",hBub("Nouveau match à taguer","FRA – BRA · ven. 16 janv. 18:00"),
+  ["<b>Nouveau match</b> ou <b>match retiré</b> : quand on t'attribue ou te retire un match.","<b>Horaire modifié / confirmé</b>, <b>affiche connue</b>, <b>consigne</b>, <b>match supprimé</b> : sur tes matchs.","Jamais pour <b>tes propres</b> modifications."]),
+ C(++n,"Sans réseau, vers Excel",hB("Hors connexion","sm")+hB("Copier pour Excel","y sm"),
+  ["Sans réseau, le planning reste consultable ; tes modifications partent <b>au retour du réseau</b>.","<b>Copier pour Excel</b> : copie la liste affichée, colle-la dans Excel (Ctrl+V)."])];
+ if(isAdmin)cards.push(
+ C(++n,"Changer de compétition (Vincent)",hB("⚙ Compétition","sm")+hA+hB("Modèle Excel","sm")+hA+hB("Importer","y sm"),
+  ["Roue dentée › <b>Compétition</b> › <b>Télécharger le modèle</b> (ou <b>Exporter l'actuelle</b>).","Remplis : titre, lien, <b>logo collé</b> dans la feuille Compétition, équipes, matchs.","<b>Importer</b> › aperçu › <b>Créer et afficher</b>. L'ancienne est archivée."],1),
+ C(++n,"Équipe et logo (Vincent)",hB("Collaborateurs","sm")+hB("Logo","sm"),
+  ["<b>Collaborateurs</b> : prénoms, couleurs, case <b>Statuts</b> (qui est prévenu des statuts).","<b>Compétition</b> : titre, sous-titre, lien, logo de la compétition affichée."],1));
+ return `<div class="hgrid">${cards.join("")}</div><p class="hfoot">${esc(comp().name||"Taguage")} · cellule vidéo équipe de France</p>`;
+}
+function openHelp(){$("#helpBody").innerHTML=helpHtml();for(const o of document.querySelectorAll(".ov.open"))o.classList.remove("open");$("#ovH").classList.add("open");ls.set("tutoVu","1")}
+$("#bHelp").onclick=openHelp;$("#bHelp2").onclick=openHelp;
 // ---------- administration
 let draft=[];
 const rlRender=()=>{$("#rl").innerHTML=draft.map((r,i)=>`<div class="rl"><input type="color" value="${esc(r.color)}" data-i="${i}" data-k="color" aria-label="Couleur"><input value="${esc(r.name)}" data-i="${i}" data-k="name" aria-label="Nom"><label class="chk"><input type="checkbox" data-i="${i}" data-k="statusAlerts"${r.statusAlerts?" checked":""}>Statuts</label><button class="ed" data-rm="${i}" aria-label="Retirer">✕</button></div>`).join("")};

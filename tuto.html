@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mode d'emploi · Taguage</title><link rel="icon" href="icons/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--ink:#121722;--mute:#5b6474;--line:#e3e6eb;--soft:#f3f6fa;--blue:#1A6FD4;--blue2:#145bb0;--yel:#FFCC00;--red:#d6262b}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 Poppins,system-ui,sans-serif;color:var(--ink);background:#fff}
+header{background:var(--blue);color:#fff;padding:22px max(4vw,16px)}
+header div{max-width:1100px;margin:auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+header img{width:56px;height:56px;border-radius:12px}
+h1{margin:0;font:700 clamp(28px,4vw,40px)/1.05 "Barlow Condensed","Arial Narrow",sans-serif}
+header p{margin:2px 0 0;color:#dbe8fb}
+.go{margin-left:auto;background:var(--yel);color:#121722;text-decoration:none;font-weight:600;border-radius:10px;padding:10px 16px}
+main{max-width:1100px;margin:auto;padding:20px max(4vw,16px) 40px}
+.pw{background:#fff8d6;border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:14px}
+/* mode d'emploi (même présentation que Temps de jeu) */
+.hdlg{width:min(1100px,100%)}
+.hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.hcard{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.hcard h5{margin:0;display:flex;align-items:center;gap:10px;font-family:"Barlow Condensed","Arial Narrow",sans-serif;text-transform:uppercase;font-size:20px;font-weight:600}
+.hcard h5 i{font-style:normal;display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--yel);color:#121722;font-size:18px;flex:none}
+.hcard.adm h5 i{background:var(--blue);color:#fff}
+.hvis{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;min-height:84px;padding:10px;border-radius:10px;background:var(--blue)}
+.hcard ul{margin:0;padding-left:18px;font-size:14px;line-height:1.45}
+.hcard li{margin:3px 0}.hcard li b{color:var(--blue2);font-weight:600}
+.hx-arrow{font-size:22px;color:var(--yel);font-weight:700}
+.hx-btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px;border-radius:9px;font-size:14px;font-weight:600;background:#fff;color:#121722;white-space:nowrap}
+.hx-btn.y{background:var(--yel)}
+.hx-btn.sm{height:30px;font-size:12px;padding:0 9px}
+.hx-chip{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:8px;border:1.5px solid #ffffff99;color:#fff;font-size:11px;font-weight:600}
+.hx-chip.on{background:var(--c);border-color:#fff}
+.hx-chip.warn{box-shadow:0 0 0 2px var(--blue),0 0 0 4px var(--red)}
+.hx-time{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-size:26px;font-weight:600;color:#fff;line-height:1;text-align:center}
+.hx-time small{display:block;font:11px Poppins,sans-serif;color:var(--yel)}
+.hx-aff{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-size:24px;font-weight:600;color:#fff}
+.hx-aff s{opacity:.6}
+.hx-bub{background:#fff;color:#121722;border-radius:14px 14px 14px 2px;padding:6px 12px;font-weight:600;font-size:13px;max-width:240px;box-shadow:0 2px 6px #0003}
+.hx-bub small{display:block;font-weight:400;color:var(--mute)}
+.hx-tap{font-size:20px}
+.hfoot{margin:16px 0 0;color:var(--mute);font-size:12px;text-align:center}
+@media(max-width:700px){.hgrid{grid-template-columns:1fr}}
+
+@media print{header{-webkit-print-color-adjust:exact;print-color-adjust:exact}.hvis,.hcard h5 i,.hx-btn.y{-webkit-print-color-adjust:exact;print-color-adjust:exact}.hcard{break-inside:avoid}.go{display:none}}
+</style></head><body>
+<header><div><img src="icons/icon-192.png" alt=""><div><h1>Mode d'emploi · Taguage</h1><p>Répartition du taguage vidéo · cellule vidéo équipe de France</p></div>
+<a class="go" href="./">Ouvrir l'appli</a></div></header>
+<main><p class="pw">Le <b>mot de passe de la cellule</b> t'est donné par Vincent. Ce mode d'emploi se retrouve à tout moment dans l'appli, bouton <b>?</b> en haut à droite.</p>
+<div class="hgrid"><div class="hcard"><h5><i>1</i>Installer l'appli</h5><div class="hvis"><span class="hx-btn ">Partager</span><span class="hx-arrow">→</span><span class="hx-btn y sm">Sur l'écran d'accueil</span></div><ul><li><b>iPhone / iPad</b> : ouvre le lien dans <b>Safari</b> › Partager › <b>Sur l'écran d'accueil</b>. Ouvre ensuite l'appli <b>depuis son icône</b>.</li><li><b>Android</b> : Chrome › menu ⋮ › <b>Installer l'application</b>.</li><li><b>Mac / PC</b> : Chrome ou Edge › icône <b>Installer</b> dans la barre d'adresse.</li></ul></div><div class="hcard"><h5><i>2</i>Se connecter</h5><div class="hvis"><span class="hx-btn ">••••••••</span><span class="hx-arrow">→</span><span class="hx-btn y">Léo</span></div><ul><li>Tape le <b>mot de passe de la cellule</b> : l'appareil le retient.</li><li>Choisis <b>ton prénom</b>. Changement possible dans la roue dentée › <b>Je suis</b>.</li></ul></div><div class="hcard"><h5><i>3</i>Activer les notifications</h5><div class="hvis"><span class="hx-btn ">⚙</span><span class="hx-arrow">→</span><span class="hx-btn y sm">Activer les notifications</span></div><ul><li>Roue dentée › <b>Activer les notifications</b> › Autoriser.</li><li>À faire <b>sur chaque appareil</b> où tu veux être prévenu.</li><li>iPhone : seulement depuis l'appli <b>ajoutée à l'écran d'accueil</b> (iOS 16.4 mini).</li></ul></div><div class="hcard"><h5><i>4</i>Lire le planning</h5><div class="hvis"><span class="hx-time">20:30<small>à confirmer</small></span><span class="hx-aff">FRA – KUW</span><span class="hx-bub">Focus défense<small>consigne</small></span></div><ul><li>Un <b>jour</b> par bloc, une <b>ligne par match</b> : heure, affiche, groupe, ville.</li><li><b>à confirmer</b> : horaire encore provisoire.</li><li>Encadré jaune : <b>consigne de taguage</b> de Vincent.</li><li>Bouton jaune <b>Calendrier officiel</b> sous le titre : le site de la compétition.</li></ul></div><div class="hcard"><h5><i>5</i>Prendre ou lâcher un match</h5><div class="hvis"><span class="hx-chip " style="--c:#16a34a">Léo</span><span class="hx-arrow">→</span><span class="hx-chip on" style="--c:#16a34a">Léo</span><span class="hx-tap">👆</span></div><ul><li>Touche <b>tes initiales</b> sur la ligne du match : la case se colore, le match est à toi.</li><li>Touche-les à nouveau pour <b>le lâcher</b>.</li><li>Plusieurs personnes possibles sur un même match.</li></ul></div><div class="hcard"><h5><i>6</i>Dire où tu en es</h5><div class="hvis"><span class="hx-btn sm">À faire</span><span class="hx-arrow">→</span><span class="hx-btn sm">En cours</span><span class="hx-arrow">→</span><span class="hx-btn sm">Tagué</span><span class="hx-arrow">→</span><span class="hx-btn y sm">Livré</span></div><ul><li>Menu <b>Statut</b> au bout de la ligne.</li><li><b>Tagué</b> : taguage fini · <b>Livré</b> : envoyé / déposé.</li><li>Vincent est prévenu à <b>chaque changement de statut</b>.</li></ul></div><div class="hcard"><h5><i>7</i>Corriger un match</h5><div class="hvis"><span class="hx-time">18:00</span><span class="hx-arrow">→</span><span class="hx-btn ">✎</span><span class="hx-arrow">→</span><span class="hx-btn sm">Horaire · Équipes · Consigne</span></div><ul><li>Touche l'<b>heure</b> ou le <b>crayon</b>.</li><li>Horaire confirmé : corrige l'heure et <b>décoche « Horaire à confirmer »</b>.</li><li>Tour principal / finales : remplace <b>1A – 3B</b> par les vraies équipes.</li><li>Les collègues du match sont <b>prévenus automatiquement</b>.</li></ul></div><div class="hcard"><h5><i>8</i>Ne voir que tes matchs</h5><div class="hvis"><span class="hx-btn y">Mes matchs</span><span class="hx-btn ">Par collaborateur</span></div><ul><li><b>Mes matchs</b> (ou ton nom dans le bandeau bleu) : seulement les tiens.</li><li><b>Par collaborateur</b> : la liste de chacun, avec les statuts.</li><li>Filtres : <b>phase</b>, <b>statut</b>, <b>attribués / non attribués</b>, recherche par équipe ou ville.</li></ul></div><div class="hcard"><h5><i>9</i>Matchs sans intérêt, chevauchements</h5><div class="hvis"><span class="hx-aff"><s>ITA – KSA</s></span><span class="hx-btn sm">Pas à taguer</span><span class="hx-chip on warn" style="--c:#16a34a">Léo</span></div><ul><li>Statut <b>Pas à taguer</b> : match barré, sorti des compteurs.</li><li><b>Cadre rouge</b> autour d'initiales : deux matchs à moins de 2 h 30 pour la même personne, à revoir.</li></ul></div><div class="hcard"><h5><i>10</i>Les notifications reçues</h5><div class="hvis"><span class="hx-bub">Nouveau match à taguer<small>FRA – BRA · ven. 16 janv. 18:00</small></span></div><ul><li><b>Nouveau match</b> ou <b>match retiré</b> : quand on t'attribue ou te retire un match.</li><li><b>Horaire modifié / confirmé</b>, <b>affiche connue</b>, <b>consigne</b>, <b>match supprimé</b> : sur tes matchs.</li><li>Jamais pour <b>tes propres</b> modifications.</li></ul></div><div class="hcard"><h5><i>11</i>Sans réseau, vers Excel</h5><div class="hvis"><span class="hx-btn sm">Hors connexion</span><span class="hx-btn y sm">Copier pour Excel</span></div><ul><li>Sans réseau, le planning reste consultable ; tes modifications partent <b>au retour du réseau</b>.</li><li><b>Copier pour Excel</b> : copie la liste affichée, colle-la dans Excel (Ctrl+V).</li></ul></div></div></main></body></html>

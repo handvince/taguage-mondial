@@ -1,6 +1,6 @@
 // Service worker : fonctionnement hors connexion + réception des notifications (Firebase Cloud Messaging)
 // Pense à augmenter VERSION à chaque mise à jour de l'appli pour que les téléphones la récupèrent.
-const VERSION = "taguage-v2";
+const VERSION = "taguage-v3";
 const SDK = "https://www.gstatic.com/firebasejs/10.14.1/";
 
 importScripts("firebase-config.js");
@@ -13,7 +13,7 @@ if (self.FIREBASE_CONFIG && !String(self.FIREBASE_CONFIG.firebase.apiKey).starts
 }
 
 const SHELL = [
-  "./", "index.html", "competition.js", "manifest.webmanifest", "firebase-config.js", "calendrier.json",
+  "./", "index.html", "tuto.html", "competition.js", "manifest.webmanifest", "firebase-config.js", "calendrier.json",
   "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"
 ];
 
